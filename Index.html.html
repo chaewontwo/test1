@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Starlight - 제주 별빛누리공원 카페</title>
+    <style>
+        /* 기본 스타일 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background-color: #0b0f19; /* 밤하늘을 연상시키는 딥네이비 */
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background-color: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffd700; /* 별빛 느낌의 골드 컬러 */
+            letter-spacing: 2px;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-links li {
+            margin-left: 20px;
+        }
+        .nav-links a:hover {
+            color: #ffd700;
+            transition: 0.3s;
+        }
+
+        /* 메인 히어로 섹션 */
+        .hero {
+            height: 100vh;
+            /* 배경 이미지는 추후 실제 카페/인테리어 사진 링크로 교체하세요 */
+            background: linear-gradient(rgba(11, 15, 25, 0.5), rgba(11, 15, 25, 0.9)), url('https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+        .hero h1 span {
+            color: #ffd700;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #cccccc;
+        }
+        .btn {
+            background-color: #ffd700;
+            color: #0b0f19;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        /* 공통 섹션 스타일 */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background-color: #ffd700;
+            margin: 20px auto 0;
+        }
+
+        /* 소개 섹션 */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        .about-text {
+            flex: 1;
+            font-size: 1.1rem;
+            color: #dddddd;
+        }
+        .about-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .about-image img {
+            width: 100%;
+            display: block;
+        }
+
+        /* 메뉴 섹션 */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .menu-item {
+            background-color: #161d2f;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .menu-item:hover {
+            transform: translateY(-10px);
+            border-color: #ffd700;
+        }
+        .menu-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        .menu-info {
+            padding: 25px;
+        }
+        .menu-name {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .menu-price {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        .menu-desc {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        /* 오시는 길 섹션 */
+        .info-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            background-color: #161d2f;
+            padding: 40px;
+            border-radius: 15px;
+        }
+        .info-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .info-box h3 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .map-placeholder {
+            width: 100%;
+            height: 350px;
+            background-color: #0b0f19;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        /* 푸터 */
+        footer {
+            background-color: #05070b;
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* 반응형 웹 디자인 디자인 보완 */
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* 심플함을 위해 모바일 메뉴는 생략 */
+            .hero h1 { font-size: 2.5rem; }
+            .about-content { flex-direction: column; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">CAFE STARLIGHT</a>
+            <ul class="nav-links">
+                <li><a href="#about">소개</a></li>
+                <li><a href="#menu">시그니처 메뉴</a></li>
+                <li><a href="#location">오시는 길</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>제주의 밤하늘, <span>별빛을 담은 커피</span></h1>
+        <p>제주 별빛누리공원 옆, 별 헤는 밤의 여유를 즐길 수 있는 아늑한 공간</p>
+        <a href="#location" class="btn">찾아오시는 길</a>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>제주 별빛누리공원에서 쏟아지는 별을 관측하기 전과 후, 따뜻한 온기를 채울 수 있는 감성 카페 <strong>'카페 스타라이트'</strong>입니다.</p><br>
+                <p>낮에는 한라산의 푸른 능선을 바라보며 시원한 음료를, 밤에는 은은한 조명 아래 스페셜티 커피와 함께 제주 밤하늘의 낭만을 만끽해 보세요.</p><br>
+                <p>매일 매장에서 직접 굽는 디저트와 엄선된 원두로 내린 에스프레소가 여러분의 여정을 더욱 특별하게 만들어 드립니다.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=600" alt="카페 인테리어">
+            </div>
+        </div>
+    </section>
+
+    <section id="menu">
+        <h2 class="section-title">Signature Menu</h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <div class="menu-img" style="background-image: url('https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&q=80&w=400');"></div>
+                <div class="menu-info">
+                    <div class="menu-name">
+                        <span>별빛 아인슈페너</span>
+                        <span class="menu-price">₩6,500</span>
+                    </div>
+                    <p class="menu-desc">수제 바닐라 크림 위에 금박 별을 수놓은 카페 스타라이트의 대표 시그니처 커피</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-img" style="background-image: url('https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=400');"></div>
+                <div class="menu-info">
+                    <div class="menu-name">
+                        <span>은하수 에이드</span>
+                        <span class="menu-price">₩7,000</span>
+                    </div>
+                    <p class="menu-desc">제주산 청귤과 블루멜로우 티가 만나 신비로운 우주 빛깔을 내는 청량한 에이드</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-img" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=400');"></div>
+                <div class="menu-info">
+                    <div class="menu-name">
+                        <span>현무암 크림 스콘</span>
+                        <span class="menu-price">₩4,800</span>
+                    </div>
+                    <p class="menu-desc">오징어 먹물로 제주의 현무암을 표현하고 부드러운 우유 크림을 곁들인 겉바속촉 스콘</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="location">
+        <h2 class="section-title">Information</h2>
+        <div class="info-container">
+            <div class="info-details">
+                <div class="info-box">
+                    <h3>위치</h3>
+                    <p>제주특별자치도 제주시 선돌목동길 (별빛누리공원 도보 3분 거리)</p>
+                </div>
+                <div class="info-box">
+                    <h3>영업 시간</h3>
+                    <p>매일 11:00 ~ 22:00 (라스트 오더 21:30)</p>
+                    <p>* 매주 화요일 휴무 (별빛누리공원 휴관일 연동)</p>
+                </div>
+                <div class="info-box">
+                    <h3>문의 / SNS</h3>
+                    <p>Tel: 064-123-4567</p>
+                    <p>Instagram: @cafe_starlight_jeju</p>
+                </div>
+            </div>
+            <div class="map-placeholder">
+                <p>📍 지도 준비 중 (추후 카카오/네이버 지도 API 연동 영역)</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Cafe Starlight. All Rights Reserved.</p>
+        <p>본 페이지는 카페 오픈 홍보용 임시 페이지입니다.</p>
+    </footer>
+
+</body>
+</html>
